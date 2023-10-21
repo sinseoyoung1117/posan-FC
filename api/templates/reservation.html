@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>특별실 예약</title>
+   <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+   <style>
+      @font-face {
+          font-family: 'GangwonEdu_OTFBoldA';
+          src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+          font-weight: 800;
+          font-style: normal;
+      }
+  
+      body { /*배경화면*/
+            background-color: #def1ff;
+        }
+
+      .history {
+         font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+         text-align: center;
+         font-size: 20px;
+      }
+
+      .row_checkbox { /*체크박스*/
+         margin-bottom: 20px;
+      }
+
+      .row_info {
+         margin-bottom: 10px;
+      }
+
+   </style>
+</head>
+
+
+<body>
+<div class="container history"> <!--지금까지 예약한 것-->
+   <h1><i class="fa-solid fa-clock fa-spin" style="color: #ffffff;"></i> {{date}}, {{space}} 예약</h1>
+      <form name="form" method="POST" action="/re">
+            <input type="hidden" name="space" value="{{ space }}">
+            <input type="hidden" name="date" value="{{ date }}">
+            
+
+            
+            <div class="checkbox">
+               <div class="row row_checkbox">
+                  <div class="col-2">
+                     {% for i in ["1교시", "2교시", "3교시", "4교시", "중식시간"] %}
+                        {% if i in reserved %}
+                           <input type="checkbox" name="time" value="{{i}}" disabled checked>{{i}}
+                        {% else %}
+                           <input type="checkbox" name="time" value="{{i}}">{{i}}
+                        {% endif %}
+                     {% endfor %}
+                  </div>
+               </div>
+               <div class="row row_checkbox">
+                  <div class="col-2">
+                     {% for i in ["5교시", "6교시", "7교시", "8교시", "9교시", "석식시간"] %}
+                        {% if i in reserved %}
+                           <input type="checkbox" name="time" value="{{i}}" disabled checked>{{i}}
+                        {% else %}
+                           <input type="checkbox" name="time" value="{{i}}">{{i}}
+                        {% endif %}
+                     {% endfor %}
+                  </div>
+               </div>
+            </div>
+
+      <div class="input-container">
+         <div class="row row_info">
+            <label for="name"><b>이름:</b></label>
+            <input id="name" type="text" name="name" autocomplete="name">
+         </div>
+
+            <div>
+               <label for="password"><b>비밀번호:</b></label>
+               <input id="password" type="password" name="password" autocomplete="current-password">
+            </div>
+         </div>
+    <input type="submit" value="예약하기">
+      </form>
+</div>
+
+</body>
+</html>
